@@ -295,15 +295,20 @@ module.exports = function(Chart) {
 					tooltipItems = tooltipItems.sort(opts.itemSort);
 				}
 
+				var activeIndex = active[0]._index;
+
 				// If there is more than one item, show color items
 				if (active.length > 1) {
+					activeIndex = [];
 					helpers.each(tooltipItems, function(tooltipItem) {
+						activeIndex.push(tooltipItem._index);
 						labelColors.push(opts.callbacks.labelColor.call(me, tooltipItem, chartInstance));
 					});
 				}
 
 				// Build the Text Lines
 				helpers.extend(model, {
+					activeIndex: activeIndex,
 					title: me.getTitle(tooltipItems, data),
 					beforeBody: me.getBeforeBody(tooltipItems, data),
 					body: me.getBody(tooltipItems, data),
